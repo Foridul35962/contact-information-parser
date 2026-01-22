@@ -1,14 +1,9 @@
-import pgp from 'pg-promise';
-const db = pgp(
-  'postgres://postgres:postgres@postgres:5432/practice_db?sslmode=disable'
-);
+import pgPromise from 'pg-promise';
 
-db.one('SELECT $1 AS value', 123)
-  .then(data => {
-    console.log('DATA:', data.value);
-  })
-  .catch(error => {
-    console.log('ERROR:', error);
-  });
+const pgp = pgPromise();
+
+const db = pgp(
+  'postgres://postgres:postgres@localhost:5434/practice_db?sslmode=disable'
+);
 
 export default db;
