@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'
 
 services:
   postgres:
@@ -23,6 +23,18 @@ services:
       - "8082:8081"
     environment:
       - PGWEB_DATABASE_URL=postgres://postgres:postgres@postgres:5432/practice_db?sslmode=disable
+    depends_on:
+      - postgres
+
+  backend:
+    build: ./backend
+    container_name: practice_backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/practice_db
+      - PORT=3000
     depends_on:
       - postgres
 
